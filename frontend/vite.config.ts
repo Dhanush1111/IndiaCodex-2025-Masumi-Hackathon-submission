@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import wasm from 'vite-plugin-wasm';
+import topLevelAwait from 'vite-plugin-top-level-await';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), wasm(), topLevelAwait()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -33,21 +35,23 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    target: 'esnext',
     rollupOptions: {
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'cardano-vendor': [
-            '@meshsdk/core',
-            '@meshsdk/react',
-            '@lucid-evolution/lucid',
-          ],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
         },
       },
     },
   },
   optimizeDeps: {
     exclude: ['lucide-react'],
+    esbuildOptions: {
+      target: 'esnext',
+    },
+  },
+  worker: {
+    format: 'es',
+    plugins: () => [wasm(), topLevelAwait()],
   },
 });

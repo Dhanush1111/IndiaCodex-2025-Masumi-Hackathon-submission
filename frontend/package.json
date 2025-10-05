@@ -16,24 +16,24 @@
     "@lucid-evolution/lucid": "^0.3.0",
     "@meshsdk/core": "^1.5.0",
     "@meshsdk/react": "^1.5.0",
+    "@react-three/drei": "^9.88.17",
+    "@react-three/fiber": "^8.15.11",
     "@tanstack/react-query": "^5.12.0",
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.16.5",
     "lucide-react": "^0.294.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.20.0",
+    "recharts": "^2.10.3",
     "socket.io-client": "^4.6.1",
     "tailwind-merge": "^2.1.0",
     "three": "^0.159.0",
-    "@react-three/fiber": "^8.15.11",
-    "@react-three/drei": "^9.88.17",
-    "zustand": "^4.4.7",
-    "react-hot-toast": "^2.4.1",
-    "date-fns": "^2.30.0",
-    "recharts": "^2.10.3"
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
@@ -51,6 +51,8 @@
     "tailwindcss": "^3.3.6",
     "typescript": "^5.3.3",
     "vite": "^5.0.4",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.5.0",
     "vitest": "^1.0.4"
   }
 }

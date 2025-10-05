@@ -1,5 +1,7 @@
 # 🎴 CardanoVerse - AI-Powered Trading Cards Platform
 
+> **Live Demo:** 🌐 [https://cardanoverse-tradingcards.web.app](https://cardanoverse-tradingcards.web.app)
+
 ## Overview
 CardanoVerse is a next-generation Web3 trading cards platform that combines the power of **Cardano blockchain**, **Masumi Network**, and **Sokosumi AI agents** to create an intelligent, decentralized trading card ecosystem.
 
@@ -210,6 +212,12 @@ User Wallet → Masumi Node → P2P Network → Other Nodes
 - 🔮 Predictive card drops
 
 ## 🚦 Getting Started
+
+### 🌐 Live Demo
+Try the application without any setup:
+- **Live App**: [https://cardanoverse-tradingcards.web.app](https://cardanoverse-tradingcards.web.app)
+- **Features**: Mock wallet integration, UI/UX exploration, AI insights preview
+- **Note**: Connect with any wallet name to test the interface
 
 ### Prerequisites
 ```bash
