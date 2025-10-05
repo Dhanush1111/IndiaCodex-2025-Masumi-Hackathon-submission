@@ -1,0 +1,11 @@
+name = "cardanoverse"
+version = "1.0.0"
+plutus = "v3"
+compiler = "v1.0.0"
+license = "MIT"
+description = "CardanoVerse Trading Cards Smart Contracts"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "v1.7.0"
+source = "github"

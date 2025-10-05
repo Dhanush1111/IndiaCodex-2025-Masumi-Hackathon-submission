@@ -1,0 +1,64 @@
+{
+  "name": "cardanoverse-trading-cards",
+  "version": "1.0.0",
+  "description": "AI-Powered Cardano Trading Cards Platform with Masumi Network & Sokosumi Agents",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:masumi\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:masumi": "cd masumi-integration && docker-compose up",
+    "build": "npm run build:frontend && npm run build:backend && npm run build:contracts",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build:contracts": "cd smart-contracts && aiken build",
+    "test": "npm run test:all",
+    "test:all": "npm run test:frontend && npm run test:backend && npm run test:contracts",
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "test:contracts": "cd smart-contracts && aiken check",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "setup": "npm run setup:env && npm run install:all",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "setup:env": "node scripts/setup-env.js",
+    "start:prod": "docker-compose -f docker-compose.prod.yml up -d"
+  },
+  "keywords": [
+    "cardano",
+    "nft",
+    "trading-cards",
+    "blockchain",
+    "web3",
+    "masumi-network",
+    "sokosumi",
+    "ai-agents",
+    "defi",
+    "p2p"
+  ],
+  "author": "CardanoVerse Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.54.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cardanoverse/trading-cards.git"
+  }
+}

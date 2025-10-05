@@ -1,0 +1,17 @@
+{
+  "name": "cardanoverse-smart-contracts",
+  "version": "1.0.0",
+  "description": "Plutus smart contracts for CardanoVerse",
+  "scripts": {
+    "build": "aiken build",
+    "check": "aiken check",
+    "test": "aiken test",
+    "deploy:preprod": "node scripts/deploy-preprod.js",
+    "deploy:mainnet": "node scripts/deploy-mainnet.js",
+    "test:integration": "node tests/integration.test.js"
+  },
+  "devDependencies": {
+    "@meshsdk/core": "^1.5.0",
+    "dotenv": "^16.3.1"
+  }
+}

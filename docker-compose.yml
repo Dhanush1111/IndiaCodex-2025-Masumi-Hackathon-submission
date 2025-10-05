@@ -1,0 +1,201 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: cardanoverse-postgres
+    environment:
+      POSTGRES_DB: cardanoverse_db
+      POSTGRES_USER: cardano_user
+      POSTGRES_PASSWORD: secure_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - cardanoverse-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cardano_user -d cardanoverse_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: cardanoverse-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - cardanoverse-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # IPFS Node
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: cardanoverse-ipfs
+    ports:
+      - "4001:4001"
+      - "4001:4001/udp"
+      - "5001:5001"
+      - "8080:8080"
+    volumes:
+      - ipfs_data:/data/ipfs
+      - ipfs_staging:/export
+    networks:
+      - cardanoverse-network
+    environment:
+      - IPFS_PROFILE=server
+    healthcheck:
+      test: ["CMD-SHELL", "ipfs id"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Masumi Network Node
+  masumi-node:
+    build:
+      context: ./masumi-integration
+      dockerfile: Dockerfile
+    container_name: cardanoverse-masumi
+    ports:
+      - "7777:7777"
+      - "7778:7778"
+    volumes:
+      - masumi_data:/data
+      - ./masumi-integration/config:/config
+    networks:
+      - cardanoverse-network
+    environment:
+      - MASUMI_NODE_PORT=7777
+      - MASUMI_NODE_HOST=0.0.0.0
+      - MASUMI_ENABLE_DHT=true
+      - MASUMI_ENABLE_PUBSUB=true
+    depends_on:
+      - ipfs
+    restart: unless-stopped
+
+  # Sokosumi MCP Server
+  sokosumi-mcp:
+    build:
+      context: ./sokosumi-mcp
+      dockerfile: Dockerfile
+    container_name: cardanoverse-sokosumi
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./sokosumi-mcp/agents:/app/agents
+      - ./sokosumi-mcp/models:/app/models
+      - sokosumi_data:/app/data
+    networks:
+      - cardanoverse-network
+    environment:
+      - NODE_ENV=development
+      - MCP_PORT=3000
+      - AI_MODEL_CACHE_DIR=/app/data/models
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cardanoverse-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - cardanoverse-network
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - DATABASE_URL=postgresql://cardano_user:secure_password@postgres:5432/cardanoverse_db
+      - REDIS_URL=redis://redis:6379
+      - SOKOSUMI_MCP_URL=http://sokosumi-mcp:3000
+      - IPFS_API_URL=http://ipfs:5001
+      - MASUMI_NODE_URL=http://masumi-node:7777
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      sokosumi-mcp:
+        condition: service_started
+      masumi-node:
+        condition: service_started
+    restart: unless-stopped
+    command: npm run dev
+
+  # Frontend (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: cardanoverse-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - cardanoverse-network
+    environment:
+      - VITE_API_URL=http://localhost:5000/api/v1
+      - VITE_WS_URL=ws://localhost:5000
+      - VITE_IPFS_GATEWAY=http://localhost:8080/ipfs/
+    depends_on:
+      - backend
+    command: npm run dev -- --host 0.0.0.0
+
+  # Cardano DB Sync (Optional - for advanced queries)
+  # Uncomment if you need full blockchain indexing
+  # cardano-db-sync:
+  #   image: inputoutput/cardano-db-sync:13.1.1.3
+  #   container_name: cardanoverse-db-sync
+  #   environment:
+  #     - NETWORK=preprod
+  #     - POSTGRES_HOST=postgres
+  #     - POSTGRES_PORT=5432
+  #   volumes:
+  #     - db-sync-data:/var/lib/cexplorer
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - cardanoverse-network
+
+networks:
+  cardanoverse-network:
+    driver: bridge
+    name: cardanoverse-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  ipfs_data:
+    driver: local
+  ipfs_staging:
+    driver: local
+  masumi_data:
+    driver: local
+  sokosumi_data:
+    driver: local
+  # db-sync-data:
+  #   driver: local
