@@ -1,6 +1,6 @@
 # 🎴 CardanoVerse - AI-Powered Trading Cards Platform
 
-> **Live Demo:** 🌐 [https://cardanoverse-tradingcards.web.app](https://cardanoverse-tradingcards.web.app)
+> **Live Demo:** 🌐 [https://projectagoraai.web.app](https://projectagoraai.web.app)
 
 ## Overview
 CardanoVerse is a next-generation Web3 trading cards platform that combines the power of **Cardano blockchain**, **Masumi Network**, and **Sokosumi AI agents** to create an intelligent, decentralized trading card ecosystem.
