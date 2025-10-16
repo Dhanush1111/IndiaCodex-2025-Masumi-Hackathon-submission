@@ -30,71 +30,71 @@ CardanoVerse is a next-generation Web3 trading cards platform that combines the 
 
 ```
 cardano-trading-cards/
-├── frontend/                    # React + TypeScript Web App
+├── frontend/                    # React + Vite Frontend
 │   ├── src/
-│   │   ├── components/         # UI Components
-│   │   ├── hooks/              # Custom React Hooks
-│   │   ├── services/           # API & Blockchain Services
-│   │   ├── ai-agents/          # Sokosumi AI Integration
-│   │   └── utils/              # Helper Functions
-│   └── public/
+│   │   ├── components/         # UI Components (Marketplace, Cards, Wallet)
+│   │   ├── services/           # API & Payment Services
+│   │   └── App.tsx             # Main application
+│   ├── .env                    # Frontend config (YOU CREATE)
+│   └── package.json
+│
 ├── backend/                     # Node.js + Express API
 │   ├── src/
-│   │   ├── controllers/        # API Controllers
-│   │   ├── services/           # Business Logic
-│   │   ├── blockchain/         # Cardano Integration
-│   │   └── ai/                 # AI Agent Services
-│   └── tests/
-├── smart-contracts/             # Plutus Smart Contracts
-│   ├── validators/              # Plutus V3 Validators
-│   ├── minting-policies/        # NFT Minting Policies
-│   └── tests/
-├── masumi-integration/          # Masumi Network Setup
-│   ├── docker/                  # Docker configurations
-│   ├── p2p-network/            # P2P networking layer
-│   └── marketplace/            # Decentralized marketplace
-├── sokosumi-mcp/               # Sokosumi MCP Server
-│   ├── agents/                  # AI Agent Configurations
-│   ├── models/                  # ML Models
-│   └── protocols/              # MCP Protocol Implementation
-└── docs/                        # Documentation
+│   │   ├── routes/             # API Routes (cards, cardano, ai-agents, p2p)
+│   │   ├── services/           # Business Logic (crewai, masumi-payment)
+│   │   └── index.ts            # Main server
+│   ├── .env                    # Backend config (YOU CREATE)
+│   └── package.json
+│
+├── crewai-service/             # Python AI Service
+│   ├── main.py                 # FastAPI server (MIP-003 compliant)
+│   ├── crew_definition.py      # 4 AI agents (CrewAI + Gemini)
+│   ├── requirements.txt        # Python dependencies
+│   ├── .env                    # AI config (YOU CREATE)
+│   └── venv/                   # Python virtual environment
+│
+├── smart-contracts/             # Aiken Smart Contracts (Placeholder)
+├── masumi-integration/          # Masumi Network (Optional)
+├── sokosumi-mcp/               # Sokosumi MCP (Future)
+│
+├── START_APP.ps1               # Windows launcher (PowerShell)
+├── START_APP.bat               # Windows launcher (CMD)
+├── README.md                   # This file
+└── PRODUCTION_SETUP.md         # Complete setup guide
 
 ```
 
 ## 🛠️ Technology Stack
 
+### AI Layer
+- **CrewAI**: Multi-agent AI framework
+- **Google Gemini**: LLM for intelligent agents
+- **FastAPI**: Python API server for AI service
+- **4 AI Agents**: Valuation, Risk Analysis, Market Intelligence, Payment Decision
+
 ### Blockchain Layer
-- **Cardano**: Layer 1 blockchain for NFT minting and transactions
-- **Lucid**: Cardano transaction library
-- **Mesh**: Cardano wallet integration
-- **Plutus V3**: Smart contract language
-- **Aiken**: Modern smart contract development
-
-### Decentralized Infrastructure
-- **Masumi Network**: P2P networking and decentralized marketplace
-- **IPFS/Arweave**: Permanent storage for card artwork
-- **Kubo**: IPFS node implementation
-
-### AI & Intelligence Layer
-- **Sokosumi MCP Server**: Model Context Protocol for AI agents
-- **TensorFlow.js**: Client-side ML predictions
-- **OpenAI/Claude APIs**: Advanced reasoning capabilities
-- **Vector Databases**: Card similarity and recommendations
+- **Cardano**: Layer 1 blockchain for NFT transactions
+- **Blockfrost API**: Cardano blockchain data access
+- **RainbowKit**: Multi-wallet connection (Nami, Eternl, Flint, Lace)
+- **Mesh SDK**: Cardano wallet integration
 
 ### Frontend
 - **React 18**: Modern UI framework
 - **TypeScript**: Type-safe development
 - **Vite**: Fast build tool
 - **TailwindCSS**: Utility-first styling
-- **Three.js**: 3D card animations
+- **RainbowKit**: Wallet connectivity
 - **Framer Motion**: Smooth animations
 
 ### Backend
 - **Node.js + Express**: REST API server
-- **PostgreSQL**: Relational database
-- **Redis**: Caching and real-time features
-- **GraphQL**: Flexible API queries
-- **WebSocket**: Real-time updates
+- **TypeScript**: Type-safe backend
+- **Socket.IO**: Real-time WebSocket updates
+- **Axios**: HTTP client for service communication
+
+### Decentralized Infrastructure (Optional)
+- **Masumi Network**: P2P networking and AI payment processing (MIP-003 compliant)
+- **IPFS**: Permanent storage for card artwork
 
 ## 🎯 Core Functionalities
 
@@ -119,35 +119,46 @@ cardano-trading-cards/
 4. **Collection Management**: Organize card series
 5. **Metadata Management**: CIP-compliant metadata
 
-## 🤖 AI Agent Architecture
+## 🤖 CrewAI Multi-Agent System
 
-### 1. Valuation Agent
-```typescript
-- Input: Card metadata, historical sales, rarity traits
-- Output: Fair market value estimate with confidence score
-- Model: Gradient Boosting + Neural Network ensemble
+**Framework**: CrewAI + Google Gemini  
+**Architecture**: 4 specialized AI agents working collaboratively
+
+### 1. Valuation Expert Agent
+```
+Role: Senior NFT & Trading Card Valuation Specialist
+Goal: Assess fair market value of cards
+Input: Card metadata, price, rarity, stats
+Output: Price assessment with confidence score
 ```
 
-### 2. Trading Advisor Agent
-```typescript
-- Input: User portfolio, market conditions, risk profile
-- Output: Personalized trading recommendations
-- Model: Reinforcement Learning (PPO algorithm)
+### 2. Risk Analyst Agent
+```
+Role: Blockchain Security & Fraud Detection Expert
+Goal: Identify risks and red flags
+Input: Transaction details, owner history, market conditions
+Output: Risk score and security analysis
 ```
 
-### 3. Market Analysis Agent
-```typescript
-- Input: Market data streams, social sentiment, on-chain metrics
-- Output: Market trend reports and insights
-- Model: Time-series forecasting + NLP sentiment analysis
+### 3. Market Intelligence Agent
+```
+Role: NFT Market Researcher & Trend Analyst
+Goal: Analyze market trends and timing
+Input: Market data, similar cards, trading volume
+Output: Market insights and timing recommendations
 ```
 
-### 4. Rarity Evaluator Agent
-```typescript
-- Input: Card attributes, collection statistics
-- Output: Rarity score and ranking
-- Model: Statistical analysis + comparative algorithms
+### 4. Payment Decision Manager Agent
 ```
+Role: Senior Payment Authorization Officer
+Goal: Make final consensus decision
+Input: Analysis from all other agents
+Output: Approve/Reject decision with reasoning
+```
+
+**Communication**: Agents collaborate via CrewAI framework  
+**LLM**: Google Gemini Pro (free tier)  
+**MIP-003**: Masumi Network compliant for paid services
 
 ## 🔗 Cardano Integration
 
@@ -211,66 +222,73 @@ User Wallet → Masumi Node → P2P Network → Other Nodes
 - 🔮 AI-generated card art
 - 🔮 Predictive card drops
 
-## 🚦 Getting Started
-
-### 🌐 Live Demo
-Try the application without any setup:
-- **Live App**: [https://cardanoverse-tradingcards.web.app](https://cardanoverse-tradingcards.web.app)
-- **Features**: Mock wallet integration, UI/UX exploration, AI insights preview
-- **Note**: Connect with any wallet name to test the interface
+## 🚀 Quick Start
 
 ### Prerequisites
-```bash
-- Node.js v20+
-- Docker & Docker Compose
-- Cardano Node (or use public APIs)
-- IPFS Node (optional)
-- PostgreSQL 15+
-```
+- **Node.js** v18+ ([Download](https://nodejs.org/))
+- **Python** 3.10-3.12 ([Download](https://www.python.org/downloads/))
+- **Git** (already installed)
 
-### Installation
-```bash
-# Clone repositories
-git clone https://github.com/masumi-network/masumi-docker
-git clone https://github.com/sokosumi/mcp-server
+### Installation (5 Minutes)
 
-# Install dependencies
-cd cardano-trading-cards
+**Step 1: Install Dependencies**
+```powershell
+# Backend
+cd backend
 npm install
+cd ..
 
-# Setup environment
+# Frontend
+cd frontend
+npm install
+cd ..
+
+# Python AI Service
+cd crewai-service
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+cd ..
+```
+
+**Step 2: Get API Keys (FREE)**
+1. **Blockfrost** (Cardano): https://blockfrost.io
+2. **Gemini** (Google AI): https://aistudio.google.com/app/apikey
+
+**Step 3: Configure Environment**
+```powershell
+# Backend
+cd backend
 cp .env.example .env
+# Edit backend/.env and add your BLOCKFROST_API_KEY
 
-# Start services
-docker-compose up -d
+# Frontend
+cd ../frontend
+cp .env.example .env
+# Frontend works with defaults
 
-# Run development server
-npm run dev
+# CrewAI Service
+cd ../crewai-service
+cp .env.example .env
+# Edit crewai-service/.env and add your GEMINI_API_KEY
 ```
 
-### Environment Variables
-```env
-# Cardano Configuration
-CARDANO_NETWORK=preprod
-BLOCKFROST_API_KEY=your_key_here
-CARDANO_POLICY_ID=your_policy_id
+**Step 4: Launch Application**
+```powershell
+# Easy way - Run launcher script
+.\START_APP.ps1
 
-# Masumi Network
-MASUMI_NODE_PORT=7777
-MASUMI_BOOTSTRAP_PEERS=/ip4/...
-
-# Sokosumi AI
-SOKOSUMI_MCP_URL=http://localhost:3000
-AI_MODEL_API_KEY=your_key_here
-
-# Database
-DATABASE_URL=postgresql://user:pass@localhost:5432/cardano_cards
-REDIS_URL=redis://localhost:6379
-
-# IPFS
-IPFS_GATEWAY=https://ipfs.io/ipfs/
-IPFS_API_URL=http://localhost:5001
+# OR manually start each service:
+# Terminal 1: cd crewai-service && .\venv\Scripts\activate && python main.py api
+# Terminal 2: cd backend && npm run dev
+# Terminal 3: cd frontend && npm run dev
 ```
+
+**Step 5: Access Application**
+
+Open browser: **http://localhost:5173**
+
+📖 **Complete Setup Guide**: See [PRODUCTION_SETUP.md](./PRODUCTION_SETUP.md) for detailed instructions, troubleshooting, and deployment guide.
 
 ## 🔐 Security Features
 

@@ -16,9 +16,10 @@
     "@lucid-evolution/lucid": "^0.3.0",
     "@meshsdk/core": "^1.5.0",
     "@meshsdk/react": "^1.5.0",
+    "@rainbow-me/rainbowkit": "^2.2.9",
     "@react-three/drei": "^9.88.17",
     "@react-three/fiber": "^8.15.11",
-    "@tanstack/react-query": "^5.12.0",
+    "@tanstack/react-query": "^5.90.3",
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -33,6 +34,8 @@
     "socket.io-client": "^4.6.1",
     "tailwind-merge": "^2.1.0",
     "three": "^0.159.0",
+    "viem": "^2.38.2",
+    "wagmi": "^2.18.1",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

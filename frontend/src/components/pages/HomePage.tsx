@@ -6,80 +6,113 @@ export const HomePage = () => {
   return (
     <div className="space-y-20">
       {/* Hero Section */}
-      <section className="text-center py-20">
+      <section className="text-center py-24 relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-6xl font-bold mb-6">
-            <span className="text-gradient">CardanoVerse</span>
-          </h1>
-          <p className="text-2xl text-gray-300 mb-4">
-            AI-Powered Trading Cards on Cardano Blockchain
-          </p>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-8">
-            Experience the future of trading cards with Masumi Network's decentralized infrastructure
-            and Sokosumi AI agents providing intelligent insights for every trade.
-          </p>
-          <div className="flex justify-center space-x-4">
+          <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="mb-8"
+          >
+            <h1 className="text-7xl md:text-8xl font-black mb-6 relative">
+              <span className="text-gradient text-glow animate-float">CardanoVerse</span>
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-6xl">✨</div>
+            </h1>
+          </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-3xl font-bold text-white mb-4"
+          >
+            AI-Powered Trading Cards on Cardano
+          </motion.p>
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed"
+          >
+            Experience the future of trading cards with <span className="text-blue-400 font-semibold">Masumi Network's</span> P2P infrastructure
+            and <span className="text-purple-400 font-semibold">CrewAI agents</span> providing intelligent insights powered by Google Gemini.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="flex flex-col sm:flex-row justify-center gap-4"
+          >
             <Link
               to="/marketplace"
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all glow-effect"
+              className="group px-10 py-5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all pulse-glow relative overflow-hidden"
             >
-              Explore Marketplace
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                <Sparkles size={24} className="group-hover:rotate-12 transition-transform" />
+                Explore Marketplace
+                <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
+              </span>
             </Link>
             <Link
               to="/create"
-              className="px-8 py-4 glass-effect rounded-lg font-semibold hover:bg-white/10 transition-all"
+              className="px-10 py-5 glass-effect rounded-2xl font-bold text-lg hover-lift hover:bg-white/10 transition-all border-2 border-white/20"
             >
               Create Cards
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* Features Section */}
       <section className="grid md:grid-cols-3 gap-8">
         <motion.div
-          className="glass-effect p-8 rounded-2xl hover:bg-white/10 transition-all"
-          whileHover={{ scale: 1.05 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.0 }}
+          className="glass-effect gradient-border p-8 rounded-3xl hover-lift group"
         >
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
-            <Brain size={32} />
+          <div className="w-20 h-20 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform shadow-2xl">
+            <Brain size={40} className="text-white" />
           </div>
-          <h3 className="text-2xl font-bold mb-4">AI-Powered Insights</h3>
-          <p className="text-gray-400">
-            Sokosumi AI agents provide real-time valuation, market analysis, and personalized
-            trading recommendations powered by machine learning.
+          <h3 className="text-3xl font-bold mb-4 text-gradient">4 AI Agents</h3>
+          <p className="text-gray-300 leading-relaxed">
+            <span className="font-semibold text-blue-400">CrewAI</span> agents powered by <span className="font-semibold text-purple-400">Google Gemini</span> provide real-time valuation, risk analysis, market intelligence, and payment decisions for every purchase.
           </p>
         </motion.div>
 
         <motion.div
-          className="glass-effect p-8 rounded-2xl hover:bg-white/10 transition-all"
-          whileHover={{ scale: 1.05 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.1 }}
+          className="glass-effect gradient-border p-8 rounded-3xl hover-lift group"
         >
-          <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mb-4">
-            <TrendingUp size={32} />
+          <div className="w-20 h-20 bg-gradient-to-br from-green-500 via-teal-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform shadow-2xl">
+            <TrendingUp size={40} className="text-white" />
           </div>
-          <h3 className="text-2xl font-bold mb-4">P2P Trading</h3>
-          <p className="text-gray-400">
-            Trade directly with other collectors via Masumi Network's decentralized peer-to-peer
-            infrastructure. No middlemen, just pure trading.
+          <h3 className="text-3xl font-bold mb-4 text-gradient">P2P Trading</h3>
+          <p className="text-gray-300 leading-relaxed">
+            Trade directly with collectors via <span className="font-semibold text-green-400">Masumi Network's</span> decentralized infrastructure. MIP-003 compliant with automated AI payment verification.
           </p>
         </motion.div>
 
         <motion.div
-          className="glass-effect p-8 rounded-2xl hover:bg-white/10 transition-all"
-          whileHover={{ scale: 1.05 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.2 }}
+          className="glass-effect gradient-border p-8 rounded-3xl hover-lift group"
         >
-          <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full flex items-center justify-center mb-4">
-            <Sparkles size={32} />
+          <div className="w-20 h-20 bg-gradient-to-br from-pink-500 via-rose-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform shadow-2xl">
+            <Sparkles size={40} className="text-white" />
           </div>
-          <h3 className="text-2xl font-bold mb-4">Cardano NFTs</h3>
-          <p className="text-gray-400">
-            Every card is a Cardano Native Token with CIP-25/68 compliant metadata, ensuring true
-            ownership and seamless wallet integration.
+          <h3 className="text-3xl font-bold mb-4 text-gradient">Cardano NFTs</h3>
+          <p className="text-gray-300 leading-relaxed">
+            Every card is a <span className="font-semibold text-pink-400">Cardano Native Token</span> with CIP-25/68 compliant metadata, ensuring true ownership and seamless RainbowKit wallet integration.
           </p>
         </motion.div>
       </section>

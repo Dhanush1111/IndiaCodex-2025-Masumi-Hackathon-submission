@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { WalletConnect } from '@components/wallet/WalletConnect';
+import { RainbowWalletConnect } from '@components/wallet/RainbowWalletConnect';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,52 +39,52 @@ export const Header = () => {
 
           {/* Wallet Connection */}
           <div className="flex items-center space-x-4">
-            <WalletConnect />
+            <RainbowWalletConnect />
             
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden"
+              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-all"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <nav className="md:hidden py-4 space-y-4">
+          <nav className="md:hidden py-6 space-y-2 border-t border-white/10 mt-2">
             <Link
               to="/marketplace"
-              className="block hover:text-blue-400 transition-colors"
+              className="block px-4 py-3 rounded-lg hover:bg-white/10 hover:text-blue-400 transition-all font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Marketplace
             </Link>
             <Link
               to="/collection"
-              className="block hover:text-blue-400 transition-colors"
+              className="block px-4 py-3 rounded-lg hover:bg-white/10 hover:text-purple-400 transition-all font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               My Collection
             </Link>
             <Link
               to="/create"
-              className="block hover:text-blue-400 transition-colors"
+              className="block px-4 py-3 rounded-lg hover:bg-white/10 hover:text-pink-400 transition-all font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Create
             </Link>
             <Link
               to="/ai-insights"
-              className="block hover:text-blue-400 transition-colors"
+              className="block px-4 py-3 rounded-lg hover:bg-white/10 hover:text-green-400 transition-all font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              AI Insights
+              🤖 AI Insights
             </Link>
             <Link
               to="/p2p-trading"
-              className="block hover:text-blue-400 transition-colors"
+              className="block px-4 py-3 rounded-lg hover:bg-white/10 hover:text-cyan-400 transition-all font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               P2P Trading

@@ -1,34 +1,23 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
-import App from './App';
+import { WalletProvider } from './providers/WalletProvider.tsx';
+import App from './App.tsx';
 import './index.css';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-  },
-});
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
+  <React.StrictMode>
+    <WalletProvider>
       <BrowserRouter>
         <App />
         <Toaster
           position="top-right"
           toastOptions={{
-            duration: 4000,
             style: {
-              background: '#1a1a1a',
+              background: '#1f2937',
               color: '#fff',
-              border: '1px solid #333',
+              border: '1px solid #374151',
             },
             success: {
               iconTheme: {
@@ -45,6 +34,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           }}
         />
       </BrowserRouter>
-    </QueryClientProvider>
-  </StrictMode>
+    </WalletProvider>
+  </React.StrictMode>
 );
